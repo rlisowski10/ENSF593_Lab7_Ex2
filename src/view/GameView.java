@@ -68,7 +68,7 @@ public class GameView {
     addComponentsToPanel(markerText, 1, 3, 30, 0, 1);
     addComponentsToPanel(playerText, 1, 4, 30, 0, 1);
     addComponentsToPanel(messageLabel, 3, 0, 0, 0, 1);
-    addComponentsToPanel(messageAreaScrollPane, 3, 1, 200, 132, 2);
+    addComponentsToPanel(messageAreaScrollPane, 3, 1, 200, 100, 2);
   }
 
   private void setupButtons() {
@@ -77,7 +77,7 @@ public class GameView {
     addComponentsToPanel(gameSquare[0][2], 2, 0, 30, 50, 1);
     addComponentsToPanel(gameSquare[1][0], 0, 1, 30, 50, 1);
     addComponentsToPanel(gameSquare[1][1], 1, 1, 30, 50, 1);
-    addComponentsToPanel(gameSquare[2][2], 2, 1, 30, 50, 1);
+    addComponentsToPanel(gameSquare[1][2], 2, 1, 30, 50, 1);
     addComponentsToPanel(gameSquare[2][0], 0, 2, 30, 50, 1);
     addComponentsToPanel(gameSquare[2][1], 1, 2, 30, 50, 1);
     addComponentsToPanel(gameSquare[2][2], 2, 2, 30, 50, 1);
