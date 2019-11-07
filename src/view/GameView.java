@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 
 // TODO Add comments throughout
-// TODO Look at altering code to abide by SRP for methods
+// TODO Look at refactoring code to abide by SRP for methods and classes
 // TODO Error checking
 
 public class GameView {
@@ -46,7 +46,7 @@ public class GameView {
 
     messageArea.setEditable(false);
     messageArea.setLineWrap(true);
-    JScrollPane messageAreaScrollPane = new JScrollPane(messageArea);    
+    JScrollPane messageAreaScrollPane = new JScrollPane(messageArea);
 
     addComponentsToPanel(gameSquareButton1, 0, 0, 30, 50, 1);
     addComponentsToPanel(gameSquareButton2, 1, 0, 30, 50, 1);
@@ -69,7 +69,8 @@ public class GameView {
     gameFrame.setVisible(true);
   }
 
-  public void addComponentsToPanel(Component component, int gridXPos, int gridYPos, int iPadX, int iPadY, int gridHeight) {
+  public void addComponentsToPanel(Component component, int gridXPos, int gridYPos, int iPadX, int iPadY,
+      int gridHeight) {
     gbConstraints.gridx = gridXPos;
     gbConstraints.gridy = gridYPos;
 
