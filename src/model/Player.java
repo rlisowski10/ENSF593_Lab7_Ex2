@@ -35,9 +35,10 @@ class Player {
    * @param name The name of the player.
    * @param mark The mark (X or O) for the player during the game.
    */
-  public Player(String name, char mark) {
+  public Player(String name, char mark, Board board) {
     this.name = name;
     this.mark = mark;
+    this.board = board;
   }
 
   // ============================================================
@@ -128,7 +129,7 @@ class Player {
    * display the outcome of the game to the user.
    */
   public void play() {
-    Scanner in = new Scanner(System.in);
+    //Scanner in = new Scanner(System.in);
     boolean isPlayerXTurn = true;
 
     // Loops through each player's turn, displaying the game board and checking to
@@ -136,11 +137,9 @@ class Player {
     while (!(getBoard().xWins() || getBoard().oWins() || getBoard().isFull())) {
       if (isPlayerXTurn) {
         makeMove(in);
-        getBoard().display();
         isPlayerXTurn = false;
       } else {
         getOpponent().makeMove(in);
-        getBoard().display();
         isPlayerXTurn = true;
       }
     }

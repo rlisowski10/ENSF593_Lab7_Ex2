@@ -94,23 +94,6 @@ class Board implements Constants {
 	}
 
 	/**
-	 * Sets up the board display and structure in the console.
-	 */
-	public void display() {
-		displayColumnHeaders();
-		addHyphens();
-		for (int row = 0; row < 3; row++) {
-			addSpaces();
-			System.out.print("    row " + row + ' ');
-			for (int col = 0; col < 3; col++)
-				System.out.print("|  " + getMark(row, col) + "  ");
-			System.out.println("|");
-			addSpaces();
-			addHyphens();
-		}
-	}
-
-	/**
 	 * Adds either an X or O mark to the board.
 	 * 
 	 * @param row  The row to add the mark in.
@@ -121,16 +104,6 @@ class Board implements Constants {
 
 		theBoard[row][col] = mark;
 		markCount++;
-	}
-
-	/**
-	 * Clears the board of any characters in preparation for a new game.
-	 */
-	public void clear() {
-		for (int i = 0; i < 3; i++)
-			for (int j = 0; j < 3; j++)
-				theBoard[i][j] = SPACE_CHAR;
-		markCount = 0;
 	}
 
 	// ============================================================
@@ -202,35 +175,5 @@ class Board implements Constants {
 		}
 
 		return result;
-	}
-
-	/**
-	 * Displays the board column lines.
-	 */
-	private void displayColumnHeaders() {
-		System.out.print("          ");
-		for (int j = 0; j < 3; j++)
-			System.out.print("|col " + j);
-		System.out.println();
-	}
-
-	/**
-	 * Displays the board row lines.
-	 */
-	private void addHyphens() {
-		System.out.print("          ");
-		for (int j = 0; j < 3; j++)
-			System.out.print("+-----");
-		System.out.println("+");
-	}
-
-	/**
-	 * Displays the board spaces in between the row and column lines.
-	 */
-	private void addSpaces() {
-		System.out.print("          ");
-		for (int j = 0; j < 3; j++)
-			System.out.print("|     ");
-		System.out.println("|");
 	}
 }

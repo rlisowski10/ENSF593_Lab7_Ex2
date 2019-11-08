@@ -82,6 +82,14 @@ class Referee {
   // Public Instance Methods
   // ============================================================
 
+  public void assignXPlayer(String name, char mark) {
+    xPlayer = new Player(name, mark, board);
+  }
+
+  public void assignOPlayer(String name, char mark) {
+    oPlayer = new Player(name, mark, board);
+  }
+
   /**
    * Runs the game by setting the opponent both the 'X' and 'O' players,
    * displaying the initial board to the user, and starting play with the 'X'
@@ -90,10 +98,7 @@ class Referee {
   public void runTheGame() {
     getxPlayer().setOpponent(getoPlayer());
     getoPlayer().setOpponent(getxPlayer());
-    System.out.println("\nReferee started the game...\n");
 
-    // Displays the game board and starts play.
-    getBoard().display();
     getxPlayer().play();
   }
 }

@@ -21,5 +21,18 @@ public class GameController {
   public GameController(GameView gameView, Game game) {
     this.gameView = gameView;
     this.game = game;
+
+    gameView.addSetupGameListener(new addSetupGameListener());
+  }
+
+  private class addSetupGameListener implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      String[] playerNames = gameView.promptForPlayerNames();
+      
+      if(playerNames != null) {
+        game.setupGame(playerNames[0], playerNames[1]);
+      }
+    }
   }
 }
