@@ -2,6 +2,8 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+
 import java.awt.event.ActionListener;
 
 // TODO Add comments throughout
@@ -9,6 +11,10 @@ import java.awt.event.ActionListener;
 // TODO Error checking
 
 public class GameView {
+
+  // ============================================================
+  // Member Variables
+  // ============================================================
 
   private JFrame gameFrame;
   private JPanel gamePanel;
@@ -24,6 +30,10 @@ public class GameView {
   private JTextArea messageArea;
   private JScrollPane messageAreaScrollPane;
 
+  // ============================================================
+  // Constructors
+  // ============================================================
+
   public GameView() {
     setupGameFrame();
     setupGamePanel();
@@ -37,12 +47,99 @@ public class GameView {
     showGameFrame();
   }
 
+  // ============================================================
+  // Accessors
+  // ============================================================
+
+  public void setPlayerText(String playerName) {
+    playerText.setText(playerName);
+  }
+
+  public void setPlayerMarker(char playerMarker) {
+    markerText.setText(Character.toString(playerMarker));
+  }
+
+  // ============================================================
+  // Action Listeners
+  // ============================================================
+
+  public void addSetupGameListener(ActionListener listenForSetupGameButton) {
+    setupGameButton.addActionListener(listenForSetupGameButton);
+  }
+
+  
+
+  // ============================================================
+  // Public Instance Methods
+  // ============================================================
+
+  public void addComponentToPanel(Component component, int gridXPos, int gridYPos, int iPadX, int iPadY,
+      int gridHeight) {
+    gbConstraints.gridx = gridXPos;
+    gbConstraints.gridy = gridYPos;
+
+    gbConstraints.ipadx = iPadX;
+    gbConstraints.ipady = iPadY;
+    gbConstraints.gridheight = gridHeight;
+    gbConstraints.anchor = GridBagConstraints.SOUTHWEST;
+
+    gbLayout.setConstraints(component, gbConstraints);
+    gamePanel.add(component);
+  }
+
+  public void createBoardButtons(int rows, int columns) {
+    gameSquare = new JButton[rows][columns];
+
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < columns; j++) {
+        gameSquare[i][j] = new JButton();
+      }
+    }
+  }
+
+  public String dialogPlayerNamePrompt(String player) {
+    return JOptionPane.showInputDialog("Please input the name for Player " + player + ": ");
+  }
+
+  public void messageInvalidPlayerNames() {
+    JOptionPane.showMessageDialog(null, "Error: Please re-enter the player names.");
+  }
+
+  public String[] promptForPlayerNames() {
+    String player1 = dialogPlayerNamePrompt("1");
+    String player2 = dialogPlayerNamePrompt("2");
+
+    if (player1 == null || player2 == null || player1.equals("") || player2.equals("")) {
+      messageInvalidPlayerNames();
+      return null;
+    } else {
+      String[] playerNames = { player1, player2 };
+      return playerNames;
+    }
+  }
+
+  public void disableSetupButton() {
+    setupGameButton.setVisible(false);
+  }
+
+  public void insertTextToMessageArea(String message) {
+    try {
+      messageArea.getDocument().insertString(0, message + "\n", null);
+    } catch (BadLocationException e) {
+      e.printStackTrace();
+    }
+  }
+
+  // ============================================================
+  // Private Instance Methods
+  // ============================================================
+
   private void createOtherComponents() {
     setupGameButton = new JButton("Start");
     markerLabel = new JLabel("Marker:");
     playerLabel = new JLabel("Player:");
-    markerText = new JLabel("X");
-    playerText = new JLabel("Ryan");
+    markerText = new JLabel();
+    playerText = new JLabel();
     messageLabel = new JLabel("Message Window:");
     messageArea = new JTextArea();
 
@@ -91,54 +188,5 @@ public class GameView {
     addComponentToPanel(gameSquare[2][0], 0, 2, 30, 50, 1);
     addComponentToPanel(gameSquare[2][1], 1, 2, 30, 50, 1);
     addComponentToPanel(gameSquare[2][2], 2, 2, 30, 50, 1);
-  }
-
-  public void addComponentToPanel(Component component, int gridXPos, int gridYPos, int iPadX, int iPadY,
-      int gridHeight) {
-    gbConstraints.gridx = gridXPos;
-    gbConstraints.gridy = gridYPos;
-
-    gbConstraints.ipadx = iPadX;
-    gbConstraints.ipady = iPadY;
-    gbConstraints.gridheight = gridHeight;
-    gbConstraints.anchor = GridBagConstraints.SOUTHWEST;
-
-    gbLayout.setConstraints(component, gbConstraints);
-    gamePanel.add(component);
-  }
-
-  public void createBoardButtons(int rows, int columns) {
-    gameSquare = new JButton[rows][columns];
-
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < columns; j++) {
-        gameSquare[i][j] = new JButton();
-      }
-    }
-  }
-
-  public void addSetupGameListener(ActionListener listenForSetupGameButton) {
-    setupGameButton.addActionListener(listenForSetupGameButton);
-  }
-
-  public String dialogPlayerNamePrompt(String player) {
-    return JOptionPane.showInputDialog("Please input the name for Player " + player + ": ");
-  }
-
-  public void messageInvalidPlayerNames() {
-    JOptionPane.showMessageDialog(null, "Error: Please re-enter the player names.");
-  }
-
-  public String[] promptForPlayerNames() {
-    String player1 = dialogPlayerNamePrompt("1");
-    String player2 = dialogPlayerNamePrompt("2");
-
-    if (player1 == null || player2 == null || player1.equals("") || player2.equals("")) {
-      messageInvalidPlayerNames();
-      return null;
-    } else {
-      String[] playerNames = {player1, player2};
-      return playerNames;
-    }
   }
 }

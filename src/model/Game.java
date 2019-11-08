@@ -1,7 +1,5 @@
 package model;
 
-import java.io.*;
-
 /**
  * <h1>Game Class</h1> The Game class contains member variables for the Board
  * and Referee objects, which are instantiated by the constructor and assigned
@@ -30,11 +28,27 @@ public class Game implements Constants {
 		board = new Board();
 		referee = new Referee();
 
-		referee.setBoard(board);		
+		referee.setBoard(board);
 		referee.assignXPlayer(player1Name, LETTER_X);
 		referee.assignOPlayer(player2Name, LETTER_O);
 
 		referee.runTheGame();
+	}
+
+	// ============================================================
+	// Accessors
+	// ============================================================
+
+	public String getCurrentPlayerName() {
+		return referee.getCurrentPlayerName();
+	}
+
+	public char getCurrentPlayerMark() {
+		return referee.getCurrentPlayerMark();
+	}
+
+	public String getCurrentPlayerMessage() {
+		return referee.getCurrentPlayerMessage();
 	}
 
 	// ============================================================

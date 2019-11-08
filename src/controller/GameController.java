@@ -32,6 +32,11 @@ public class GameController {
       
       if(playerNames != null) {
         game.setupGame(playerNames[0], playerNames[1]);
+
+        gameView.disableSetupButton();
+        gameView.setPlayerMarker(game.getCurrentPlayerMark());
+        gameView.setPlayerText(game.getCurrentPlayerName());
+        gameView.insertTextToMessageArea(game.getCurrentPlayerMessage());
       }
     }
   }

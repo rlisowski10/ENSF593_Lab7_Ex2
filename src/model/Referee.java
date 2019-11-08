@@ -18,6 +18,7 @@ class Referee {
 
   Player xPlayer;
   Player oPlayer;
+  Player currentPlayer;
   Board board;
 
   // ============================================================
@@ -78,6 +79,18 @@ class Referee {
     return this.board;
   }
 
+  public String getCurrentPlayerName() {
+    return currentPlayer.getName();
+  }
+
+  public char getCurrentPlayerMark() {
+    return currentPlayer.getMark();
+  }
+
+  public String getCurrentPlayerMessage() {
+    return currentPlayer.getMessage();
+  }
+
   // ============================================================
   // Public Instance Methods
   // ============================================================
@@ -99,6 +112,7 @@ class Referee {
     getxPlayer().setOpponent(getoPlayer());
     getoPlayer().setOpponent(getxPlayer());
 
+    currentPlayer = getxPlayer();
     getxPlayer().play();
   }
 }

@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Scanner;
-
 /**
  * <h1>Player Class</h1> The Player class instantiates a Player object, which
  * keeps track of the Player's name, opponent, game board, and mark (X or O).
@@ -19,10 +17,12 @@ class Player {
   // Member Variables
   // ============================================================
 
-  String name;
-  Board board;
-  Player opponent;
-  char mark;
+  private String name;
+  private Board board;
+  private Player opponent;
+  private char mark;
+  private boolean isPlayerXTurn;
+  private String message;
 
   // ============================================================
   // Constructors
@@ -117,6 +117,14 @@ class Player {
     return this.mark;
   }
 
+  public boolean getIsPlayerXTurn() {
+    return isPlayerXTurn;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
   // ============================================================
   // Public Instance Methods
   // ============================================================
@@ -130,24 +138,27 @@ class Player {
    */
   public void play() {
     //Scanner in = new Scanner(System.in);
-    boolean isPlayerXTurn = true;
+    isPlayerXTurn = true;
+    message = name + ", please place a mark.";
 
     // Loops through each player's turn, displaying the game board and checking to
     // see if the win or tie conditions have been met after each turn.
-    while (!(getBoard().xWins() || getBoard().oWins() || getBoard().isFull())) {
-      if (isPlayerXTurn) {
-        makeMove(in);
-        isPlayerXTurn = false;
-      } else {
-        getOpponent().makeMove(in);
-        isPlayerXTurn = true;
-      }
-    }
+
+    // while (!(getBoard().xWins() || getBoard().oWins() || getBoard().isFull())) {
+    //   if (isPlayerXTurn) {
+    //     makeMove();
+    //     isPlayerXTurn = false;
+    //   } else {
+    //     getOpponent().makeMove();
+    //     isPlayerXTurn = true;
+    //   }
+    // }
 
     // Diplays the game outcome message to the console only after the win or tie
     // conditions have been met.
-    in.close();
-    displayGameOutcome();
+    //in.close();
+
+    // displayGameOutcome();
   }
 
   // ============================================================
@@ -174,14 +185,14 @@ class Player {
    * 
    * @param in The Scanner object for user input.
    */
-  private void makeMove(Scanner in) {
+  private void makeMove() {
     int row = 0;
     int column = 0;
     boolean isValid = false;
 
     while (!isValid) {
-      row = validateGridInput(in, "row");
-      column = validateGridInput(in, "column");
+      row = validateGridInput("row");
+      column = validateGridInput("column");
 
       // Checks to ensure that an existing mark has not been previously placed at the
       // chosen board location.
@@ -205,14 +216,14 @@ class Player {
    *                    row or column.
    * @return int A valid row or column integer.
    */
-  private int validateGridInput(Scanner in, String rowOrColumn) {
+  private int validateGridInput(String rowOrColumn) {
     boolean isValid = false;
     int rowOrColumnValue = 0;
     String userInput = "";
 
     while (!isValid) {
       System.out.println("\n" + getName() + ", what " + rowOrColumn + " should your next X be placed in? ");
-      userInput = in.nextLine();
+      //userInput = in.nextLine();
 
       // Checks to ensure that a valid row or column number has been entered. An error
       // message is displayed if the input is not valid, and the user will have to
