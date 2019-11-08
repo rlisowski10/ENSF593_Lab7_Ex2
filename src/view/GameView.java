@@ -2,7 +2,6 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
 
 import java.awt.event.ActionListener;
 
@@ -127,6 +126,7 @@ public class GameView {
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
         gameSquare[i][j] = new JButton("   ");
+        gameSquare[i][j].setFocusPainted(false);
       }
     }
   }

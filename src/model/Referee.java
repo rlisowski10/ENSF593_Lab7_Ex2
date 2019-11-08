@@ -20,6 +20,15 @@ public class Referee implements Constants {
   Player oPlayer;
   Player currentPlayer;
   Board board;
+  Boolean isGameOver;
+
+  // ============================================================
+  // Constructors
+  // ============================================================
+
+  public Referee() {
+    isGameOver = true;
+  }
 
   // ============================================================
   // Accessors
@@ -91,6 +100,10 @@ public class Referee implements Constants {
     return currentPlayer.getMessage();
   }
 
+  public Boolean getIsGameOver() {
+    return isGameOver;
+  }
+
   // ============================================================
   // Public Instance Methods
   // ============================================================
@@ -105,9 +118,10 @@ public class Referee implements Constants {
 
   public char markedLocation(int row, int column) {
     char markToPlace = currentPlayer.makeMove(row, column);
-    if (markToPlace != ' ' && currentPlayer == xPlayer) {
+    if (checkGameEndConditions()) {
+      isGameOver = true;
+    } else if (markToPlace != ' ' && currentPlayer == xPlayer) {
       currentPlayer = oPlayer;
-
     } else if (markToPlace != ' ' && currentPlayer == oPlayer) {
       currentPlayer = xPlayer;
     }
@@ -117,6 +131,7 @@ public class Referee implements Constants {
 
   public void setupGame(String player1Name, String player2Name) {
     board = new Board();
+    isGameOver = false;
 
     setBoard(board);
     assignXPlayer(player1Name, LETTER_X);
@@ -135,5 +150,25 @@ public class Referee implements Constants {
     getoPlayer().setOpponent(getxPlayer());
 
     currentPlayer = getxPlayer();
+  }
+
+  // ============================================================
+  // Private Instance Methods
+  // ============================================================
+
+  /**
+   * Determines the final outcome of the game, and displays a message to the user
+   * with this information.
+   */
+  private Boolean checkGameEndConditions() {
+    if (getBoard().xWins() || getBoard().oWins()) {
+      currentPlayer.setMessage("\nTHE GAME IS OVER: " + currentPlayer.getName() + " is the winner!\n");
+      return true;
+    } else if (getBoard().isFull()) {
+      currentPlayer.setMessage("\nTHE GAME IS OVER: There are no winners.\n");
+      return true;
+    } else {
+      return false;
+    }
   }
 }

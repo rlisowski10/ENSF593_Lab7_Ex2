@@ -38,12 +38,20 @@ class Player {
     this.name = name;
     this.mark = mark;
     this.board = board;
-    this.message = name + ", please place a mark.\n";
+    this.setMessage(name + ", please place a mark.\n");
   }
 
   // ============================================================
   // Accessors
   // ============================================================
+
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
 
   /**
    * Sets the name of the player.
@@ -117,10 +125,6 @@ class Player {
     return this.mark;
   }
 
-  public String getMessage() {
-    return message;
-  }
-
   // ============================================================
   // Public Instance Methods
   // ============================================================
@@ -135,33 +139,15 @@ class Player {
   public char makeMove(int row, int column) {
     // Checks to ensure that an existing mark has not been previously placed at the
     // chosen board location.
-    message = name + ", please place a mark.\n";
+    setMessage(name + ", please place a mark.\n");
     char existingMark = board.getMark(row, column);
 
     if (existingMark == ' ') {
       getBoard().addMark(row, column, getMark());
-      //displayGameOutcome();
       return getMark();
     } else {
-      message = getName() + ", a mark already exists at that location. Please try again.\n";
+      setMessage(getName() + ", a mark already exists at that location. Please try again.\n");
       return ' ';
     }
-  }
-
-  // ============================================================
-  // Private Instance Methods
-  // ============================================================
-
-  /**
-   * Determines the final outcome of the game, and displays a message to the user
-   * with this information.
-   */
-  private void displayGameOutcome() {
-    if (getBoard().xWins())
-      System.out.println("\nTHE GAME IS OVER: " + getName() + " is the winner!\n");
-    else if (getBoard().oWins())
-      System.out.println("\nTHE GAME IS OVER: " + getOpponent().getName() + " is the winner!\n");
-    else
-      System.out.println("\nTHE GAME IS OVER: There are no winners.\n");
   }
 }

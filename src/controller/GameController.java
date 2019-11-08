@@ -69,7 +69,7 @@ public class GameController {
     public void actionPerformed(ActionEvent e) {
       int row = 0;
       int column = 1;
-      
+
       updateGridWithMark(row, column);
     }
   }
@@ -79,7 +79,7 @@ public class GameController {
     public void actionPerformed(ActionEvent e) {
       int row = 0;
       int column = 2;
-      
+
       updateGridWithMark(row, column);
     }
   }
@@ -89,7 +89,7 @@ public class GameController {
     public void actionPerformed(ActionEvent e) {
       int row = 1;
       int column = 0;
-      
+
       updateGridWithMark(row, column);
     }
   }
@@ -99,7 +99,7 @@ public class GameController {
     public void actionPerformed(ActionEvent e) {
       int row = 1;
       int column = 1;
-      
+
       updateGridWithMark(row, column);
     }
   }
@@ -109,7 +109,7 @@ public class GameController {
     public void actionPerformed(ActionEvent e) {
       int row = 1;
       int column = 2;
-      
+
       updateGridWithMark(row, column);
     }
   }
@@ -119,7 +119,7 @@ public class GameController {
     public void actionPerformed(ActionEvent e) {
       int row = 2;
       int column = 0;
-      
+
       updateGridWithMark(row, column);
     }
   }
@@ -129,7 +129,7 @@ public class GameController {
     public void actionPerformed(ActionEvent e) {
       int row = 2;
       int column = 1;
-      
+
       updateGridWithMark(row, column);
     }
   }
@@ -139,20 +139,22 @@ public class GameController {
     public void actionPerformed(ActionEvent e) {
       int row = 2;
       int column = 2;
-      
+
       updateGridWithMark(row, column);
     }
   }
 
-    // ============================================================
+  // ============================================================
   // Private Instance Methods
   // ============================================================
 
   private void updateGridWithMark(int row, int column) {
-    char markToPlace = referee.markedLocation(row, column);
-    gameView.updateGameBoard(row, column, markToPlace);
-    gameView.setPlayerMarker(referee.getCurrentPlayerMark());
-    gameView.setPlayerText(referee.getCurrentPlayerName());
-    gameView.insertTextToMessageArea(referee.getCurrentPlayerMessage());
+    if (!referee.getIsGameOver()) {
+      char markToPlace = referee.markedLocation(row, column);
+      gameView.updateGameBoard(row, column, markToPlace);
+      gameView.setPlayerMarker(referee.getCurrentPlayerMark());
+      gameView.setPlayerText(referee.getCurrentPlayerName());
+      gameView.insertTextToMessageArea(referee.getCurrentPlayerMessage());
+    }
   }
 }
