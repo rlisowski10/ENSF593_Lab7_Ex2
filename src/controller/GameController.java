@@ -5,6 +5,14 @@ import view.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Creates and manages the controller for the MVC architecture.
+ * <p>
+ *
+ * @author Ryan Lisowski (ID: 00257796)
+ * @version 1.0
+ * @since 2019-11-06
+ */
 public class GameController {
 
   // ============================================================
@@ -18,6 +26,12 @@ public class GameController {
   // Constructors
   // ============================================================
 
+  /**
+   * The constructor the game controller, which sets up the listeners.
+   * 
+   * @param gameView The game view for the architecture.
+   * @param referee  The referee model for the architecture.
+   */
   public GameController(GameView gameView, Referee referee) {
     this.gameView = gameView;
     this.referee = referee;
@@ -38,11 +52,16 @@ public class GameController {
   // Action Listeners
   // ============================================================
 
+  /**
+   * An inner class that handles the actions from a button-press event.
+   */
   private class addSetupGameListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
       String[] playerNames = gameView.promptForPlayerNames();
 
+      // If valid player names are provided, the board is setup with the player
+      // information in preparation for the game commencing.
       if (playerNames != null) {
         referee.setupGame(playerNames[0], playerNames[1]);
 
@@ -54,6 +73,9 @@ public class GameController {
     }
   }
 
+  /**
+   * An inner class that handles the actions from a button-press event.
+   */
   private class addGameGrid1Listener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -64,6 +86,9 @@ public class GameController {
     }
   }
 
+  /**
+   * An inner class that handles the actions from a button-press event.
+   */
   private class addGameGrid2Listener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -74,6 +99,9 @@ public class GameController {
     }
   }
 
+  /**
+   * An inner class that handles the actions from a button-press event.
+   */
   private class addGameGrid3Listener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -84,6 +112,9 @@ public class GameController {
     }
   }
 
+  /**
+   * An inner class that handles the actions from a button-press event.
+   */
   private class addGameGrid4Listener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -94,6 +125,9 @@ public class GameController {
     }
   }
 
+  /**
+   * An inner class that handles the actions from a button-press event.
+   */
   private class addGameGrid5Listener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -104,6 +138,9 @@ public class GameController {
     }
   }
 
+  /**
+   * An inner class that handles the actions from a button-press event.
+   */
   private class addGameGrid6Listener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -114,6 +151,9 @@ public class GameController {
     }
   }
 
+  /**
+   * An inner class that handles the actions from a button-press event.
+   */
   private class addGameGrid7Listener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -124,6 +164,9 @@ public class GameController {
     }
   }
 
+  /**
+   * An inner class that handles the actions from a button-press event.
+   */
   private class addGameGrid8Listener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -134,6 +177,9 @@ public class GameController {
     }
   }
 
+  /**
+   * An inner class that handles the actions from a button-press event.
+   */
   private class addGameGrid9Listener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -148,7 +194,15 @@ public class GameController {
   // Private Instance Methods
   // ============================================================
 
+  /**
+   * Updates the game grid with the current player's mark.
+   * 
+   * @param row    The gridbag row for the button.
+   * @param column The gridbag column for the button.
+   */
   private void updateGridWithMark(int row, int column) {
+    // If the game is not over, the game board is updates with the player's mark,
+    // and the information for the next player is added to the labels and text area.
     if (!referee.getIsGameOver()) {
       char markToPlace = referee.markedLocation(row, column);
       gameView.updateGameBoard(row, column, markToPlace);

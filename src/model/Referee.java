@@ -26,6 +26,11 @@ public class Referee implements Constants {
   // Constructors
   // ============================================================
 
+  /**
+   * The constructor for the referee object, which initially sets the isGameOver
+   * status to true so that the board cannot be modified until the valid player
+   * names have been added.
+   */
   public Referee() {
     isGameOver = true;
   }
@@ -88,18 +93,30 @@ public class Referee implements Constants {
     return this.board;
   }
 
+  /**
+   * @return String
+   */
   public String getCurrentPlayerName() {
     return currentPlayer.getName();
   }
 
+  /**
+   * @return char
+   */
   public char getCurrentPlayerMark() {
     return currentPlayer.getMark();
   }
 
+  /**
+   * @return String
+   */
   public String getCurrentPlayerMessage() {
     return currentPlayer.getMessage();
   }
 
+  /**
+   * @return Boolean
+   */
   public Boolean getIsGameOver() {
     return isGameOver;
   }
@@ -108,14 +125,35 @@ public class Referee implements Constants {
   // Public Instance Methods
   // ============================================================
 
+  /**
+   * Assigns the X player information and marker.
+   * 
+   * @param name The name of the X player.
+   * @param mark The marker for the X player.
+   */
   public void assignXPlayer(String name, char mark) {
     xPlayer = new Player(name, mark, board);
   }
 
+  /**
+   * Assigns the O player information and marker.
+   * 
+   * @param name The name of the O player.
+   * @param mark The marker for the O player.
+   */
   public void assignOPlayer(String name, char mark) {
     oPlayer = new Player(name, mark, board);
   }
 
+  /**
+   * Allows the current player to make a move, and collects the mark for that
+   * player. If the game has not ended, the mark is returned to the user
+   * interface.
+   * 
+   * @param row    The button's gridbag position.
+   * @param column The button's gridbag position.
+   * @return char The character representing the marker for the player.
+   */
   public char markedLocation(int row, int column) {
     char markToPlace = currentPlayer.makeMove(row, column);
     if (checkGameEndConditions()) {
@@ -129,6 +167,12 @@ public class Referee implements Constants {
     return markToPlace;
   }
 
+  /**
+   * Sets up the game and players initially.
+   * 
+   * @param player1Name The name of the first player.
+   * @param player2Name The name of the second player.
+   */
   public void setupGame(String player1Name, String player2Name) {
     board = new Board();
     isGameOver = false;
@@ -137,15 +181,13 @@ public class Referee implements Constants {
     assignXPlayer(player1Name, LETTER_X);
     assignOPlayer(player2Name, LETTER_O);
 
-    runTheGame();
+    setupPlayers();
   }
 
   /**
-   * Runs the game by setting the opponent both the 'X' and 'O' players,
-   * displaying the initial board to the user, and starting play with the 'X'
-   * player.
+   * Sets up the players by setting the opponent players.
    */
-  public void runTheGame() {
+  public void setupPlayers() {
     getxPlayer().setOpponent(getoPlayer());
     getoPlayer().setOpponent(getxPlayer());
 
@@ -157,7 +199,7 @@ public class Referee implements Constants {
   // ============================================================
 
   /**
-   * Determines the final outcome of the game, and displays a message to the user
+   * Determines the final outcome of the game, and provides a message for the user
    * with this information.
    */
   private Boolean checkGameEndConditions() {

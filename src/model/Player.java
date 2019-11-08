@@ -4,7 +4,7 @@ package model;
  * <h1>Player Class</h1> The Player class instantiates a Player object, which
  * keeps track of the Player's name, opponent, game board, and mark (X or O).
  * The Play method is exposed as public, which allows the player's to make
- * moves, while checking for and displaying win condiitons.
+ * moves.
  * <p>
  *
  * @author Ryan Lisowski (ID: 00257796)
@@ -31,8 +31,9 @@ class Player {
    * Constructor for a Player object, which sets the name and mark (X or O) for
    * the player.
    * 
-   * @param name The name of the player.
-   * @param mark The mark (X or O) for the player during the game.
+   * @param name  The name of the player.
+   * @param mark  The mark (X or O) for the player during the game.
+   * @param board The game board.
    */
   public Player(String name, char mark, Board board) {
     this.name = name;
@@ -45,10 +46,20 @@ class Player {
   // Accessors
   // ============================================================
 
+  /**
+   * Gets the message for the player's status.
+   * 
+   * @return String The player status message.
+   */
   public String getMessage() {
     return message;
   }
 
+  /**
+   * Sets the message for the player's status.
+   * 
+   * @param message The player's status message.
+   */
   public void setMessage(String message) {
     this.message = message;
   }
@@ -130,11 +141,12 @@ class Player {
   // ============================================================
 
   /**
-   * Calls methods to validate the user's row and column input, adding the
-   * player's mark (X or O) to the board once complete. Also checks to ensure that
-   * a previous mark has not already been added to the board in that location.
+   * Allows the player to make a move by placing a mark on the board, if the board
+   * position is empty. Returns a message to the user if the board has a mark in
+   * that position already.
    * 
-   * @param in The Scanner object for user input.
+   * @param row The gridbag row.
+   * @param row The gridbag column.
    */
   public char makeMove(int row, int column) {
     // Checks to ensure that an existing mark has not been previously placed at the
