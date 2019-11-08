@@ -21,7 +21,6 @@ class Player {
   private Board board;
   private Player opponent;
   private char mark;
-  private boolean isPlayerXTurn;
   private String message;
 
   // ============================================================
@@ -39,6 +38,7 @@ class Player {
     this.name = name;
     this.mark = mark;
     this.board = board;
+    this.message = name + ", please place a mark.\n";
   }
 
   // ============================================================
@@ -117,10 +117,6 @@ class Player {
     return this.mark;
   }
 
-  public boolean getIsPlayerXTurn() {
-    return isPlayerXTurn;
-  }
-
   public String getMessage() {
     return message;
   }
@@ -130,35 +126,26 @@ class Player {
   // ============================================================
 
   /**
-   * Calls the method to allow the current player to make a move, while keeping
-   * track of which player has the next turn. After each move, an updated board is
-   * displayed, and win or tie conditions are checked for before allowing the next
-   * player's move. If the win or tie conditions are met, a method is called to
-   * display the outcome of the game to the user.
+   * Calls methods to validate the user's row and column input, adding the
+   * player's mark (X or O) to the board once complete. Also checks to ensure that
+   * a previous mark has not already been added to the board in that location.
+   * 
+   * @param in The Scanner object for user input.
    */
-  public void play() {
-    //Scanner in = new Scanner(System.in);
-    isPlayerXTurn = true;
-    message = name + ", please place a mark.";
+  public char makeMove(int row, int column) {
+    // Checks to ensure that an existing mark has not been previously placed at the
+    // chosen board location.
+    message = name + ", please place a mark.\n";
+    char existingMark = board.getMark(row, column);
 
-    // Loops through each player's turn, displaying the game board and checking to
-    // see if the win or tie conditions have been met after each turn.
-
-    // while (!(getBoard().xWins() || getBoard().oWins() || getBoard().isFull())) {
-    //   if (isPlayerXTurn) {
-    //     makeMove();
-    //     isPlayerXTurn = false;
-    //   } else {
-    //     getOpponent().makeMove();
-    //     isPlayerXTurn = true;
-    //   }
-    // }
-
-    // Diplays the game outcome message to the console only after the win or tie
-    // conditions have been met.
-    //in.close();
-
-    // displayGameOutcome();
+    if (existingMark == ' ') {
+      getBoard().addMark(row, column, getMark());
+      //displayGameOutcome();
+      return getMark();
+    } else {
+      message = getName() + ", a mark already exists at that location. Please try again.\n";
+      return ' ';
+    }
   }
 
   // ============================================================
@@ -176,66 +163,5 @@ class Player {
       System.out.println("\nTHE GAME IS OVER: " + getOpponent().getName() + " is the winner!\n");
     else
       System.out.println("\nTHE GAME IS OVER: There are no winners.\n");
-  }
-
-  /**
-   * Calls methods to validate the user's row and column input, adding the
-   * player's mark (X or O) to the board once complete. Also checks to ensure that
-   * a previous mark has not already been added to the board in that location.
-   * 
-   * @param in The Scanner object for user input.
-   */
-  private void makeMove() {
-    int row = 0;
-    int column = 0;
-    boolean isValid = false;
-
-    while (!isValid) {
-      row = validateGridInput("row");
-      column = validateGridInput("column");
-
-      // Checks to ensure that an existing mark has not been previously placed at the
-      // chosen board location.
-      char existingMark = board.getMark(row, column);
-      if (existingMark == ' ')
-        isValid = true;
-      else
-        System.out.println("\nERROR: A mark already exists at that location. Please try again.");
-    }
-
-    getBoard().addMark(row, column, getMark());
-  }
-
-  /**
-   * Validates the user's grid input (i.e. the row or column number) to ensure
-   * that it is an integer, and between 0 and 2. If it is not, a message is
-   * displayed to the user that a valid number must be entered.
-   * 
-   * @param in          The Scanner object for user input.
-   * @param rowOrColumn A String indicating whether the user input is for a board
-   *                    row or column.
-   * @return int A valid row or column integer.
-   */
-  private int validateGridInput(String rowOrColumn) {
-    boolean isValid = false;
-    int rowOrColumnValue = 0;
-    String userInput = "";
-
-    while (!isValid) {
-      System.out.println("\n" + getName() + ", what " + rowOrColumn + " should your next X be placed in? ");
-      //userInput = in.nextLine();
-
-      // Checks to ensure that a valid row or column number has been entered. An error
-      // message is displayed if the input is not valid, and the user will have to
-      // enter a valid number.
-      if (userInput.equals("0") || userInput.equals("1") || userInput.equals("2")) {
-        rowOrColumnValue = Integer.parseInt(userInput);
-        isValid = true;
-      } else {
-        System.out.println("\nERROR: Please input a valid " + rowOrColumn + " number.");
-      }
-    }
-
-    return rowOrColumnValue;
   }
 }

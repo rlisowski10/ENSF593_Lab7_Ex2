@@ -67,7 +67,41 @@ public class GameView {
     setupGameButton.addActionListener(listenForSetupGameButton);
   }
 
-  
+  public void addGameGrid1Listener(ActionListener listenForGameGrid1Button) {
+    gameSquare[0][0].addActionListener(listenForGameGrid1Button);
+  }
+
+  public void addGameGrid2Listener(ActionListener listenForGameGrid2Button) {
+    gameSquare[0][1].addActionListener(listenForGameGrid2Button);
+  }
+
+  public void addGameGrid3Listener(ActionListener listenForGameGrid3Button) {
+    gameSquare[0][2].addActionListener(listenForGameGrid3Button);
+  }
+
+  public void addGameGrid4Listener(ActionListener listenForGameGrid4Button) {
+    gameSquare[1][0].addActionListener(listenForGameGrid4Button);
+  }
+
+  public void addGameGrid5Listener(ActionListener listenForGameGrid5Button) {
+    gameSquare[1][1].addActionListener(listenForGameGrid5Button);
+  }
+
+  public void addGameGrid6Listener(ActionListener listenForGameGrid6Button) {
+    gameSquare[1][2].addActionListener(listenForGameGrid6Button);
+  }
+
+  public void addGameGrid7Listener(ActionListener listenForGameGrid7Button) {
+    gameSquare[2][0].addActionListener(listenForGameGrid7Button);
+  }
+
+  public void addGameGrid8Listener(ActionListener listenForGameGrid8Button) {
+    gameSquare[2][1].addActionListener(listenForGameGrid8Button);
+  }
+
+  public void addGameGrid9Listener(ActionListener listenForGameGrid9Button) {
+    gameSquare[2][2].addActionListener(listenForGameGrid9Button);
+  }
 
   // ============================================================
   // Public Instance Methods
@@ -92,7 +126,7 @@ public class GameView {
 
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
-        gameSquare[i][j] = new JButton();
+        gameSquare[i][j] = new JButton("   ");
       }
     }
   }
@@ -123,10 +157,12 @@ public class GameView {
   }
 
   public void insertTextToMessageArea(String message) {
-    try {
-      messageArea.getDocument().insertString(0, message + "\n", null);
-    } catch (BadLocationException e) {
-      e.printStackTrace();
+    messageArea.append(message + "\n");
+  }
+
+  public void updateGameBoard(int row, int column, char mark) {
+    if (mark != ' ') {
+      gameSquare[row][column].setText(Character.toString(mark));
     }
   }
 
@@ -145,6 +181,7 @@ public class GameView {
 
     messageArea.setEditable(false);
     messageArea.setLineWrap(true);
+    messageArea.setWrapStyleWord(true);
     messageAreaScrollPane = new JScrollPane(messageArea);
   }
 
@@ -169,13 +206,13 @@ public class GameView {
   }
 
   private void setupOtherComponents() {
-    addComponentToPanel(setupGameButton, 2, 3, 3, 5, 2);
+    addComponentToPanel(setupGameButton, 2, 3, 11, 5, 2);
     addComponentToPanel(markerLabel, 0, 3, 0, 0, 1);
     addComponentToPanel(playerLabel, 0, 4, 0, 0, 1);
     addComponentToPanel(markerText, 1, 3, 30, 0, 1);
     addComponentToPanel(playerText, 1, 4, 30, 0, 1);
     addComponentToPanel(messageLabel, 3, 0, 0, 0, 1);
-    addComponentToPanel(messageAreaScrollPane, 3, 1, 200, 100, 2);
+    addComponentToPanel(messageAreaScrollPane, 3, 1, 200, 132, 2);
   }
 
   private void setupButtons() {
